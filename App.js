@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View, StatusBar } from 'react-native';
 import { TabNavigator, StackNavigator } from 'react-navigation'
@@ -9,6 +8,10 @@ import NewDeckView from './src/components/NewDeckView'
 import DeckListView from './src/components/DeckListView'
 import AddCardView from './src/components/AddCardView'
 import DeckDetailView from './src/components/DeckDetailView'
+import QuizView from './src/components/QuizView'
+// import configureStore from './configureStore'
+//
+// const store = configureStore()
 
 function FlashCardsStatusBar ({backgroundColor, ...props}) {
     return (
@@ -48,6 +51,39 @@ const Tabs = TabNavigator({
             },
             shadowRadius: 6,
             shadowOpacity: 1
+        }
+    }
+})
+
+const MainNavigator = StackNavigator({
+    Home: {
+        screen: Tabs,
+    },
+    AddCardView: {
+        screen: AddCardView,
+        navigationOptions: {
+            headerTintColor: white,
+            headerStyle: {
+                backgroundColor: purple,
+            }
+        }
+    },
+    DeckDetailView: {
+        screen: DeckDetailView,
+        navigationOptions: {
+            headerTintColor: white,
+            headerStyle: {
+                backgroundColor: purple,
+            }
+        }
+    },
+    QuizView: {
+        screen: QuizView,
+        navigationOptions: {
+            headerTintColor: white,
+            headerStyle: {
+                backgroundColor: purple,
+            }
         }
     }
 })
