@@ -21,30 +21,47 @@ export function getDeck(key) {
 // 언제 더블 컬리 먹이는지 모르겠다
 // mergeItem 에 안맞는 문법을 쓰고 있나봄
 // 왜 mergeItem 만 불이 안들어오냐
-export function saveDeckTitle ({ key }) {
+export function saveDeckTitle (key) {
     return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({
-        [key]: null
+        [key]: {title: key}
     }))
 }
 
 
 // addCardToDeck : title 과 card 를 파라미터로 받아서 card 를 해당 Deck의 questions 에 추가하는
-export function addCardToDeck ({ title, card }) {
+export function addCardToDeck ({title, card}) {
     return AsyncStorage.getItem(DECK_STORAGE_KEY)
         .then((results) => {
             const data = JSON.parse(results)
-            data[title] = card
+            const index = data[title].questions.length
+            data[title].questions = {...data[title].questions, [index] : card}
             AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(data))
         })
 }
 
 // removeDeck
-export function removeDeck (key) {
+export function removeDeck (title) {
     return AsyncStorage.getItem(DECK_STORAGE_KEY)
         .then((results) => {
             const data = JSON.parse(results)
-            data[key] = undefined
-            delete data[key]
+            data[title] = undefined
+            delete data[title]
             AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(data))
         })
+}
+
+// removeCard card id 넣는거는 좀이따 하고요
+export function removeCard ({ title, cardId }) {
+    return AsyncStorage.getItem(DECK_STORAGE_KEY)
+        .then((results) => {
+            const data = JSON.parse(results)
+            data[title].questions.cardId = undefined
+            delete data[title].questions.cardId
+            AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(data))
+        })
+}
+
+
+export function clearDecks() {
+    return AsyncStorage.clear()
 }

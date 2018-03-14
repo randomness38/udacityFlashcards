@@ -23,6 +23,28 @@ class DeckListView extends Component {
             })
     }
 
+    saveDeckTitle() {
+        api.saveDeckTitle('Jay')
+
+    }
+
+    addCardToDeck(){
+        const title = 'React'
+        const card = {
+                    question: 'What is React?',
+                    answer: 'A library for managing user interfaces'
+                }
+        api.addCardToDeck({ title, card })
+    }
+
+    removeDeck(){
+        api.removeDeck('Jay')
+    }
+
+    clearDecks(){
+        api.clearDecks()
+    }
+
     render() {
 
         return (
@@ -34,7 +56,23 @@ class DeckListView extends Component {
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={this.getDeck}>
-                    <Text>getDeck</Text>
+                <Text>getDeck</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={this.saveDeckTitle}>
+                <Text>saveDeckTitle</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={this.addCardToDeck}>
+                    <Text>addCardToDeck</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={this.removeDeck}>
+                    <Text>removeDeck</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={this.clearDecks}>
+                    <Text>clear</Text>
                 </TouchableOpacity>
 
             </View>
